@@ -2,8 +2,10 @@
 package main
 
 import "fmt"
-import "math/rand"
-import "time"
+import (
+	"math/rand"
+	"time"
+)
 
 func main() {
 	//Declare Variables based on User Preferences
@@ -17,9 +19,10 @@ func main() {
 	var cm1 float32
 	var cm2 float32
 	var chancem float32
-	var roll float32
 	var bethigh bool
 	var lc int32
+	var nb int64
+	var roll float32
 	// Get User Preferences
 	fmt.Print("Your Balance Amount :")
 	fmt.Scan(&balance)
@@ -33,6 +36,7 @@ func main() {
 	fmt.Scan(&bethigh)
 
 	// Maths Formulaes
+	rand.Seed(time.Now().UnixNano())
 	nextbet = balance / risk
 	minbalance = balance * pb / 100
 	cm1 = 100 / chance
@@ -48,16 +52,26 @@ func main() {
 	// Program Will Run Until we hit min balance
 
 	for {
-		fmt.Println("Number of loss's", lc)
-		if balance-nextbet < minbalance {
-			break
+		nb++
+		if nb%10000000 == 0 {
+				fmt.Println("Total Bets", nb)
+				fmt.Println("Number of loss's", lc)
+				fmt.Println("Your Balance", balance)
+			    fmt.Println("Dice Roll ", roll)
 		}
-		fmt.Println("Your Balance", balance)
-		//Generator Random number Between 0.00 and 99.99
-		roll = rand.Float32() * 100
-		fmt.Println("Dice Roll ", roll)
+		if balance-nextbet < minbalance {
+			fmt.Println("Total Bets", nb)
+			fmt.Println("Number of loss's", lc)
+			fmt.Println("balance",balance)
+			nextbet = balance/risk
+		}
+
+		roll = rand.Float32()*100
+		//
+
 		// Compare Roll vs bet to see if win or lose assign wc=1 to win
 		var wc int32
+		wc = 0
 		if bethigh == true {
 			if roll > 100-chance {
 				wc = 1
@@ -70,16 +84,14 @@ func main() {
 		}
 		// Let User Know if Win or Loss and Update Balance
 		if wc == 1 {
-			fmt.Println("You Win ")
 			balance = balance + nextbet*chancem
 			nextbet = balance / risk
 			minbalance = balance * pb / 100
 			lc = 0
 		}
 		if wc != 1 {
-			fmt.Println("You Lose")
 			balance = balance - nextbet
-			nextbet = nextbet * (1 + chance/100)
+			nextbet = nextbet * 1.10
 			lc++
 		}
 
