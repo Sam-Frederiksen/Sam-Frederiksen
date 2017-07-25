@@ -2,6 +2,7 @@
 package main
 
 import "fmt"
+import "math/rand"
 
 func main() {
 	//Declare Variables based on User Preferences
@@ -14,6 +15,8 @@ func main() {
 	var cm1 float32
 	var cm2 float32
 	var chancem float32
+	var roll float32
+	var bethigh bool
 	// Get User Preferences
 	fmt.Print("Your Balance Amount :")
 	fmt.Scan(&balance)
@@ -23,6 +26,9 @@ func main() {
 	fmt.Scan(&chance)
 	fmt.Print("Risk between 1000 and 5000000000 :")
 	fmt.Scan(&risk)
+	fmt.Print("true or false :")
+	fmt.Scan(&bethigh)
+
 	// Maths Formulaes
 	nextbet = balance / risk
 	cm1 = 100 / chance
@@ -37,9 +43,34 @@ func main() {
 
 	// Program Will Run Until we hit min balance
 
-	for balance <= minbalance {
-        fmt.Println("Your Balance",balance)
+	for {
+		if balance-nextbet < minbalance {
+			break
+		}
+		fmt.Println("Your Balance", balance)
+		//Generator Random number Between 0.00 and 99.99
+		roll = rand.Float32() * 100
+		fmt.Println("Dice Roll ", roll)
+		// Compare Roll vs bet to see if win or lose assign wc=1 to win
+		var wc int32
+		if bethigh == true {
+			if roll > 100-chance {
+				wc = 1
+			}
+		}
+		if bethigh == false {
+			if roll < 100-chance {
+				wc = 1
+			}
+		}
 
+		if wc == 1 {
+			fmt.Println("You Win ")
+		}
+		if wc != 1 {
+			fmt.Println("You Lose")
+		}
 	}
+	fmt.Println("Next Bet will Put you under Min Balance")
 
 }
