@@ -3,6 +3,7 @@ package main
 
 import "fmt"
 import "math/rand"
+import "time"
 
 func main() {
 	//Declare Variables based on User Preferences
@@ -10,6 +11,7 @@ func main() {
 	var risk float32
 	var nextbet float32
 	var balance float32
+	var pb float32
 	var minbalance float32
 	var minbet float32 = .00000001
 	var cm1 float32
@@ -17,11 +19,12 @@ func main() {
 	var chancem float32
 	var roll float32
 	var bethigh bool
+	var lc int32
 	// Get User Preferences
 	fmt.Print("Your Balance Amount :")
 	fmt.Scan(&balance)
-	fmt.Print("Lowest Balance You Will Go :")
-	fmt.Scan(&minbalance)
+	fmt.Print("Pertcentage of Balance Lowest Limit :")
+	fmt.Scan(&pb)
 	fmt.Print("Chance between 5.00 and 98.00 :")
 	fmt.Scan(&chance)
 	fmt.Print("Risk between 1000 and 5000000000 :")
@@ -31,6 +34,7 @@ func main() {
 
 	// Maths Formulaes
 	nextbet = balance / risk
+	minbalance = balance * pb / 100
 	cm1 = 100 / chance
 	cm2 = cm1 * .01
 	chancem = cm1 - cm2 //chance multiplier based on house 1 percent edge
@@ -44,6 +48,7 @@ func main() {
 	// Program Will Run Until we hit min balance
 
 	for {
+		fmt.Println("Number of loss's", lc)
 		if balance-nextbet < minbalance {
 			break
 		}
@@ -59,17 +64,25 @@ func main() {
 			}
 		}
 		if bethigh == false {
-			if roll < 100-chance {
+			if roll < chance {
 				wc = 1
 			}
 		}
-
+		// Let User Know if Win or Loss and Update Balance
 		if wc == 1 {
 			fmt.Println("You Win ")
+			balance = balance + nextbet*chancem
+			nextbet = balance / risk
+			minbalance = balance * pb / 100
+			lc = 0
 		}
 		if wc != 1 {
 			fmt.Println("You Lose")
+			balance = balance - nextbet
+			nextbet = nextbet * (1 + chance/100)
+			lc++
 		}
+
 	}
 	fmt.Println("Next Bet will Put you under Min Balance")
 
