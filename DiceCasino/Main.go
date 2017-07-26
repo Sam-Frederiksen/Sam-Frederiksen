@@ -6,6 +6,7 @@ import "math/rand"
 
 func main() {
 	//Declare global varibles
+	var trolls int64
 	var ld int64 = 0
 	var nl int64 = 0
 	var win int64
@@ -30,25 +31,27 @@ func main() {
 	//reset seed
 	rand.Seed(time.Now().UnixNano())
 	//Print User settings
-	fmt.Println("Betting at 12.38% - Roll Over =", bethigh,chancem)
+	fmt.Println("Betting at 12.38% - Roll Over =", bethigh, chancem)
 	//Get User to Add balance
 	fmt.Print("Your Balance")
 	fmt.Scan(&balance)
 	//Bets start here
 	for {
 		// Determine if bet is a win or loss
-		roll = rand.Float64()*100
+		roll = rand.Float64() * 100
+		trolls++
 		if roll < chance {
 			win = 1
-			balance = balance +  nextbet*chancem
+			balance = balance + nextbet*chancem
 		} else {
 			win = 0
 			balance = balance - nextbet
 		}
 		// Print Stats
-		ld ++
-		fmt.Println("Roll",roll)
-		fmt.Println("Balance",balance)
+		ld++
+		fmt.Println("Total Number Rolls", trolls)
+		fmt.Println("Roll", roll)
+		fmt.Println("Balance", balance)
 		fmt.Print("Last Double Win ")
 		fmt.Println(ld)
 		fmt.Print("rolls ago ")
@@ -58,14 +61,14 @@ func main() {
 		// If We already had more than 2 wins in a row
 		if win == 1 && echance > 0 {
 			nextbet = nextbet * 3.35
-			echance ++
+			echance++
 			nl = 0
 			ld = 0
 		}
 		// If this is 2nd win in a row
 		if win == 1 && echance == 0 {
 			nextbet = nextbet * .5
-			echance ++
+			echance++
 			minbalance = balance * .65
 			nl = 0
 		}
@@ -73,7 +76,7 @@ func main() {
 		if win == 0 && echance > 0 {
 			nextbet = minbet
 			echance = 0
-			nl ++
+			nl++
 		}
 		// Normal loss routine
 		if win == 0 && echance == 0 {
