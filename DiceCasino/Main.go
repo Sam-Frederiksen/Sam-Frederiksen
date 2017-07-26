@@ -7,9 +7,9 @@ import "math/rand"
 func main() {
 	//Declare global varibles
 	var trolls int64
-	var bm float64 = 1.5
-	var risk float64 = .95 //minbalance Percentage
-	var risk2 float64 = 1000000
+	var bm float64 = 1.4
+	var risk float64 = .98 //minbalance Percentage
+	var risk2 float64 = 100000000
 	var ld int64 = 0
 	var nl int64 = 0
 	var win int64
@@ -23,7 +23,6 @@ func main() {
 	chancem = cm1 - cm2 //chance multiplier based on house 1 percent edge
 	var balance float64
 	var minbet float64 = balance / risk2
-	var bethigh bool = false
 	var nextbet float64 = minbet
 	var echance int64 = 0
 	var minbalance float64 = balance * risk
@@ -33,8 +32,6 @@ func main() {
 	}
 	//reset seed
 	rand.Seed(time.Now().UnixNano())
-	//Print User settings
-	fmt.Println("Betting at 12.38% - Roll Over =", bethigh, chancem)
 	//Get User to Add balance
 	fmt.Print("Your Balance")
 	fmt.Scan(&balance)
@@ -90,16 +87,11 @@ func main() {
 		}
 		//check to see if we hit min balance or not
 		if balance < minbalance {
-			fmt.Println("Really Bad Luck Better Luck Next Time")
 			fmt.Println("Total Number Rolls", trolls)
-			fmt.Println("Roll", roll)
 			fmt.Println("Balance", balance)
-			fmt.Print("Last Double Win ")
-			fmt.Println(ld)
-			fmt.Print("rolls ago ")
 			fmt.Print("Number of Loss's in a Row ")
 			fmt.Println(nl)
-			time.Sleep(1000 * time.Millisecond)
+			time.Sleep(100 * time.Millisecond)
 			nextbet = minbet
 			minbalance = balance * risk
 		}
