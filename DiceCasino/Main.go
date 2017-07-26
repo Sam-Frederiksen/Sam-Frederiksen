@@ -7,6 +7,9 @@ import "math/rand"
 func main() {
 	//Declare global varibles
 	var trolls int64
+	var bm float64 = 1.5
+	var risk float64 = .95 //minbalance Percentage
+	var risk2 float64 = 1000000
 	var ld int64 = 0
 	var nl int64 = 0
 	var win int64
@@ -19,11 +22,11 @@ func main() {
 	cm2 = cm1 * .01
 	chancem = cm1 - cm2 //chance multiplier based on house 1 percent edge
 	var balance float64
-	var minbet float64 = balance / 2500000000
+	var minbet float64 = balance / risk2
 	var bethigh bool = false
 	var nextbet float64 = minbet
 	var echance int64 = 0
-	var minbalance float64 = balance * .65
+	var minbalance float64 = balance * risk
 	//error check make sure next bet is possible
 	if nextbet < .00000001 {
 		nextbet = .00000001
@@ -49,15 +52,6 @@ func main() {
 		}
 		// Print Stats
 		ld++
-		fmt.Println("Total Number Rolls", trolls)
-		fmt.Println("Roll", roll)
-		fmt.Println("Balance", balance)
-		fmt.Print("Last Double Win ")
-		fmt.Println(ld)
-		fmt.Print("rolls ago ")
-		fmt.Print("Number of Loss's in a Row ")
-		fmt.Println(nl)
-
 		// If We already had more than 2 wins in a row
 		if win == 1 && echance > 0 {
 			nextbet = nextbet * 3.35
@@ -69,7 +63,7 @@ func main() {
 		if win == 1 && echance == 0 {
 			nextbet = nextbet * .5
 			echance++
-			minbalance = balance * .65
+			minbalance = balance * risk
 			nl = 0
 		}
 		// If not win after more than 1 win
@@ -80,12 +74,12 @@ func main() {
 		}
 		// Normal loss routine
 		if win == 0 && echance == 0 {
-			nextbet = nextbet * 1.235
+			nextbet = nextbet * bm
 			nl++
 			echance = 0
 		}
 		//setup new minbet
-		minbet = balance / 2500000000
+		minbet = balance / risk2
 		//errorcheck to see if minbet is possible
 		if minbet < .00000001 {
 			minbet = .00000001
@@ -97,7 +91,17 @@ func main() {
 		//check to see if we hit min balance or not
 		if balance < minbalance {
 			fmt.Println("Really Bad Luck Better Luck Next Time")
-			break
+			fmt.Println("Total Number Rolls", trolls)
+			fmt.Println("Roll", roll)
+			fmt.Println("Balance", balance)
+			fmt.Print("Last Double Win ")
+			fmt.Println(ld)
+			fmt.Print("rolls ago ")
+			fmt.Print("Number of Loss's in a Row ")
+			fmt.Println(nl)
+			time.Sleep(1000 * time.Millisecond)
+			nextbet = minbet
+			minbalance = balance * risk
 		}
 	}
 }
