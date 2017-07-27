@@ -1,13 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"net/http"
+)
 
 func main() {
-	var name string
-	fmt.Print("Please Enter Your Name: ")
-	fmt.Scan(&name)
-	fmt.Println("Hello", name)
-	for i := 1; i < 11; i++ {
-		fmt.Print(i)
-	}
+	http.ListenAndServe(":8000", nil)
 }

@@ -2,7 +2,9 @@ package main
 
 import "../../AllenDang/w32" // I had putted the w32 package inside the project source folder -
 import "syscall"
-import "unsafe"
+import (
+		"unsafe"
+)
 
 func MakeIntResource(id uint16) *uint16 {
 	return (*uint16)(unsafe.Pointer(uintptr(id)))
@@ -35,7 +37,7 @@ func WinMain() int {
 	wcex.IconSm = w32.LoadIcon(hInstance, MakeIntResource(w32.IDI_APPLICATION))
 	w32.RegisterClassEx(&wcex)
 	hWnd := w32.CreateWindowEx(
-		0, lpszClassName, syscall.StringToUTF16Ptr("Simple Go Window!"),
+		0, lpszClassName, syscall.StringToUTF16Ptr("Sam's Dice Program"),
 		w32.WS_OVERLAPPEDWINDOW|w32.WS_VISIBLE,
 		w32.CW_USEDEFAULT, w32.CW_USEDEFAULT, 400, 400, 0, 0, hInstance, nil)
 	w32.ShowWindow(hWnd, w32.SW_SHOWDEFAULT)
@@ -53,4 +55,6 @@ func WinMain() int {
 func main() {
 	WinMain()
 	return
+
+
 }
