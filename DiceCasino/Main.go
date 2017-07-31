@@ -5,74 +5,97 @@ import "time"
 import "math/rand"
 
 func main() {
-	//Declare global varibles
-	var trolls int64
-	var bm float64 = 1.4
-	var risk float64 = .98 //minbalance Percentage
-	var risk2 float64 = 100000000
-	var ld int64 = 0
-	var nl int64 = 0
-	var win int64
-	var roll float64
-	var chance float64 = 12.38
-	var cm1 float64
-	var cm2 float64
-	var chancem float64
+	var (
+		trolls  int64
+		bm      float64
+		risk    float64
+		risk2   float64
+		wtu1    float64
+		wtu2    float64
+		wtu3    float64
+		wtu4    float64
+		ld      int64
+		nl      float64
+		win     int64
+		roll    float64
+		chance  float64
+		cm1     float64
+		cm2     float64
+		chancem float64
+		balance float64
+	)
+	//reset seed
+	rand.Seed(time.Now().UnixNano())
+	//Get User to Add balance
+	fmt.Print("Enter Your Balance :")
+	fmt.Scan(&balance)
+	fmt.Print("Increase on Lose Percent 1.405 (1 to 1000)")
+	fmt.Scan(&bm)
+	fmt.Print("Risk Pertcentage of Balance .95 (.99 to .01) :")
+	fmt.Scan(&risk)
+	fmt.Print("Minbet Size Reducer  1000000(1 to 1000000000) :")
+	fmt.Scan(&risk2)
+	fmt.Print("Win  adjuster  .5(0 to 100) :")
+	fmt.Scan(&wtu1)
+	fmt.Print("Multiple Win adjuster  3.05(0 to 100) :")
+	fmt.Scan(&wtu2)
+	fmt.Print("Fine Tune Multiple WIn 0(1 to 1000000000) :")
+	fmt.Scan(&wtu3)
+	fmt.Print("Fine Tune First Win  0(1 to 1000000000) :")
+	fmt.Scan(&wtu4)
+	fmt.Print("Roll Under 15(5.00 to 98) :")
+	fmt.Scan(&chance)
+
+	var (
+		minbet     float64 = balance / risk2
+		nextbet    float64 = minbet
+		echance    float64 = 0
+		minbalance float64 = balance * risk
+	)
+	// set up house edge
 	cm1 = 100 / chance
 	cm2 = cm1 * .01
-	chancem = cm1 - cm2 //chance multiplier based on house 1 percent edge
-	var balance float64
-	var minbet float64 = balance / risk2
-	var nextbet float64 = minbet
-	var echance int64 = 0
-	var minbalance float64 = balance * risk
+	chancem = cm1 - cm2
 	//error check make sure next bet is possible
 	if nextbet < .00000001 {
 		nextbet = .00000001
 	}
-	//reset seed
-	rand.Seed(time.Now().UnixNano())
-	//Get User to Add balance
-	fmt.Print("Your Balance")
-	fmt.Scan(&balance)
 	//Bets start here
 	for {
-		// Determine if bet is a win or loss
 		roll = rand.Float64() * 100
 		trolls++
+		// Determine if bet is a win or loss
 		if roll < chance {
 			win = 1
-			balance = balance + nextbet*chancem
+			balance = balance + nextbet*chancem - nextbet
+			minbalance = balance * risk
+			nl = 0
 		} else {
 			win = 0
 			balance = balance - nextbet
+			nl++
+
 		}
-		// Print Stats
 		ld++
 		// If We already had more than 2 wins in a row
 		if win == 1 && echance > 0 {
-			nextbet = nextbet * 3.35
+			nextbet = nextbet * (wtu2 - (echance * wtu3))
 			echance++
-			nl = 0
 			ld = 0
 		}
 		// If this is 2nd win in a row
 		if win == 1 && echance == 0 {
-			nextbet = nextbet * .5
+			nextbet = nextbet * wtu1
 			echance++
-			minbalance = balance * risk
-			nl = 0
 		}
 		// If not win after more than 1 win
 		if win == 0 && echance > 0 {
 			nextbet = minbet
 			echance = 0
-			nl++
 		}
 		// Normal loss routine
 		if win == 0 && echance == 0 {
-			nextbet = nextbet * bm
-			nl++
+			nextbet = nextbet * (bm + (nl * wtu4))
 			echance = 0
 		}
 		//setup new minbet
@@ -85,13 +108,21 @@ func main() {
 		if nextbet < minbet {
 			nextbet = minbet
 		}
-		//check to see if we hit min balance or not
+		if trolls % 100 ==0 {
+		//Display Stats every 1000 rolls
+		fmt.Println("Total Number Rolls", trolls)
+		fmt.Println("Balance", balance)
+		fmt.Print("Number of Loss's in a Row ")
+		fmt.Println(nl)
+			time.Sleep(100 * time.Millisecond)
+			}
 		if balance < minbalance {
+			fmt.Print("You Just Hit Your Min Balance Level")
 			fmt.Println("Total Number Rolls", trolls)
-			fmt.Println("Balance", balance)
+			fmt.Println("Balance ", balance, " Bets Reset to MinBet")
 			fmt.Print("Number of Loss's in a Row ")
 			fmt.Println(nl)
-			time.Sleep(100 * time.Millisecond)
+			time.Sleep(1000 * time.Millisecond)
 			nextbet = minbet
 			minbalance = balance * risk
 		}
