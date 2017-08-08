@@ -11,7 +11,7 @@ func main() {
 	)
 	for i = 1; i < 2000000; i++ {
 		t = 0
-		for j = 2; j < i/2; j++ {
+		for j = 2; j < i; j++ {
 			if i%j == 0 {
 				t = 1
 				break
@@ -19,6 +19,7 @@ func main() {
 		}
 		if t != 1 {
 			sum = sum + i
+			fmt.Println(i)
 		}
 	}
 	fmt.Println(sum)
