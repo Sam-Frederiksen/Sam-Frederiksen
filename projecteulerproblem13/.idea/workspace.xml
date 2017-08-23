@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="25fcca53-bb7d-4a74-a896-a22e156b1919" name="Default" comment="" />
+    <list default="true" id="7cf115a9-e715-4de7-9483-9ef2de86091c" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,8 +14,8 @@
       <file leaf-file-name="main.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="27" column="9" lean-forward="true" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
+            <state relative-caret-position="200">
+              <caret line="95" column="35" lean-forward="true" selection-start-line="95" selection-start-column="35" selection-end-line="95" selection-end-column="35" />
               <folding>
                 <element signature="e#14#26#0" expanded="true" />
               </folding>
@@ -72,8 +72,8 @@
         <subPane>
           <expand>
             <path>
-              <item name="projecteulerproblem12" type="b2602c69:ProjectViewProjectNode" />
-              <item name="projecteulerproblem12" type="462c0819:PsiDirectoryNode" />
+              <item name="projecteulerproblem13" type="b2602c69:ProjectViewProjectNode" />
+              <item name="projecteulerproblem13" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -136,8 +136,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="27" column="9" lean-forward="true" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
+        <state relative-caret-position="200">
+          <caret line="95" column="35" lean-forward="true" selection-start-line="95" selection-start-column="35" selection-end-line="95" selection-end-column="35" />
           <folding>
             <element signature="e#14#26#0" expanded="true" />
           </folding>
