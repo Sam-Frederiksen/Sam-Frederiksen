@@ -1,0 +1,33 @@
+chance =25
+e=0
+f=0
+bethigh=false
+mbet=.0002
+nextbet=mbet
+sbalance=balance
+function dobet()
+nextbet=nextbet*1.05
+if balance>sbalance*1.01 and !win then
+e=e+1
+end
+if e>2 then
+e=0
+nextbet=mbet
+sbalance=balance
+end
+if win then 
+e=0
+end
+if !win then
+f=0
+end
+if sbalance>balance*1.008 and win then
+f=f+1
+end
+if f>0 then
+f=0
+nextbet=mbet
+sbalance=balance
+end
+
+end
