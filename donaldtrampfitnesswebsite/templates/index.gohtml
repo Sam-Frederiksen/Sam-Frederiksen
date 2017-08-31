@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Word Tricks</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+<div id="atf">
+<h1>Enter Words</h1>
+    <form method="post">
+       <input id="tbox"
+               name="new-word"
+              type="text" autofocus>
+        <input id="sbut"
+                type="submit"
+               value="Submit">
+    </form>
+    {{if .}}
+    Your typed {{.}}
+    {{end}}
+    <h1 id="suc">Word Taken!</h1>
+</div>
+<script src="main.js"></script>
+</body>
+</html>

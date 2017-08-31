@@ -1,0 +1,40 @@
+html,body,h1, #atf {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html,body, #atf {
+    height: 100%;
+}
+body {
+    background: cadetblue;
+}
+#atf {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+#atf form {
+    display: flex;
+    flex-direction: column;
+}
+h1 {
+    color: silver;
+    font-size: 10vw;
+ }
+#tbox{
+font-size: 8vw;
+    text-align: center;
+}
+#sbut {
+font-size: 5vw;
+    border-radius:20px;
+    background-color: silver;
+    margin: 10px;
+}
+#suc {
+visibility: hidden;
+
+}
