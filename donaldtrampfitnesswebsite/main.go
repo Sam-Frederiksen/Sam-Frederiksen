@@ -8,9 +8,10 @@ import (
 
 var tpl *template.Template
 func init() {
-	tpl = template.Must(template.ParseGlob("templates/*.gohtml"))
+	tpl = template.Must(template.ParseGlob("templates/*.html"))
 }
 func main() {
+
 	http.HandleFunc("/", idx)
 	http.Handle("/assets/",http.StripPrefix("/assets",http.FileServer(http.Dir("public"))))
 	http.ListenAndServe(":8080", nil)
@@ -22,7 +23,7 @@ func idx(w http.ResponseWriter, req *http.Request) {
 		first=req.FormValue("new-word")
 	}
 
-	err := tpl.ExecuteTemplate(w, "index.gohtml", first)
+	err := tpl.ExecuteTemplate(w, "index.html", first)
 	if err != nil {
 		log.Fatal(err)
 	}
