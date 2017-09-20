@@ -9,8 +9,8 @@ import (
 
 func main() {
 	var (
-		chance float64 = .05
-		ee float64=0
+		chance  float64 = .05
+		ee      float64 = 0
 		roll    float64
 		count   float64
 		win     float64
@@ -41,30 +41,30 @@ func main() {
 		if win == 1 {
 			nextbet = minbet
 			chance = .05
-			ee=1
+			ee = 1
 		}
-		if win == 0 && ee<cm*.75{
-			ee=ee+1
-			}
-		if win ==0 && ee>=cm*.75{
-			ee=1
-			chance=chance+.05
-			nextbet=nextbet*2.5
+		if win == 0 && ee < cm*.75 {
+			ee = ee + 1
+		}
+		if win == 0 && ee >= cm*.75 {
+			ee = 1
+			chance = chance + .05
+			nextbet = nextbet * 2.5
 		}
 		if nextbet < minbet {
 			nextbet = minbet
 		}
-		if chance >.5 {
-			chance =.5
-			ee=1
-			nextbet=minbet
+		if chance > .5 {
+			chance = .5
+			ee = 1
+			nextbet = minbet
 		}
 		if balance < 0 {
 			break
 		}
 		// Print Results
-		time.Sleep(1000000000 )
-		fmt.Println(count,chance,cm,ee)
+		time.Sleep(10000000)
+		fmt.Println(count, chance, cm, ee)
 		//fmt.Println(nextbet)
 		fmt.Printf("%.2f", roll)
 		//fmt.Println(ee)
