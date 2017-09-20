@@ -1,0 +1,23 @@
+{{define "title"}}A templated page{{end}}
+
+{{define "body"}}
+<body>
+<div id="atf">
+    <h1>Enter Words</h1>
+    <form method="post">
+        <input id="tbox"
+               name="new-word"
+               type="text" autofocus>
+        <input id="sbut"
+               type="submit"
+               value="Submit">
+    </form>
+    {{if .}}
+    Your typed {{.}}
+    {{end}}
+    <h1 id="suc">Word Taken!</h1>
+</div>
+<script src="main.js"></script>
+</body>
+{{end}}
+
